@@ -26,3 +26,61 @@ exports.readTemperature=function(path, callback){
  });
 }
 
+if(require.main == module){
+  var vals,
+    devices=exports.getDevices(),
+    handles,
+    ref,
+    probeDevices,
+    temperntc= require.main.exports
+
+
+  function oneHandle(err,val){
+    if(vals != val){
+      process.write(val)
+      process.write(",\n")
+      vals= val
+    }
+    probeDevices()
+  }
+
+  function manyHandle(err,val){
+    var n= Number(this)
+    if(vals[n] != val){
+      process.write("["+n+","+val+"]")
+      vals[n]= val
+    }
+    if(!--ref)
+      probeDevices()
+  }
+
+  if(devices.length> 1){
+    handles= []
+    probeDevices= function(){
+      for(var i in devices){
+        handles[i]= handleMany.bind(i)
+        temperntc.readTemperature(devices[i],handles[i])
+      }
+    }
+  }else{
+    probeDevices= function(){
+      temperntc.readTemperature(devices[i],oneHandle()
+    }
+  }
+  var rawProbe= probeDevices
+  probeDevices= function(){
+    setTimeout(rawProbe,1000)
+  }
+  
+  process.stdout.write("[")
+    probeDevices()
+  }
+  setInterval(function(){
+    for(var i in 
+	thermometers.readTemperature(
+  },1000)
+  process.on("exit",function(){
+    process.stdout.write("]")
+  })
+}
+
