@@ -65,7 +65,7 @@ if(require.main == module){
     }
   }else{
     probeDevices= function(){
-      temperntc.readTemperature(devices[i],oneHandle()
+      temperntc.readTemperature(devices[i],oneHandle())
     }
   }
   var rawProbe= probeDevices
@@ -74,12 +74,7 @@ if(require.main == module){
   }
   
   process.stdout.write("[")
-    probeDevices()
-  }
-  setInterval(function(){
-    for(var i in 
-	thermometers.readTemperature(
-  },1000)
+  probeDevices()
   process.on("exit",function(){
     process.stdout.write("]")
   })
