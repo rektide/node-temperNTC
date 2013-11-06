@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var HID = require('HID');
+var HID = require('node-hid/src/build/Release/HID');
 var readExternalCommand=[0x01, 0x80, 0x33, 0x01, 0x00, 0x00, 0x00, 0x00];
 
 exports.getDevices=function() {
